@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Sidebar
+    partial class MainClinic
     {
         /// <summary>
         /// Required designer variable.
@@ -30,9 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.mainpanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Date = new System.Windows.Forms.Label();
             this.Clock = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
             this.AddPatientS = new System.Windows.Forms.Button();
             this.DashboardS = new System.Windows.Forms.Button();
             this.ClockTimer = new System.Windows.Forms.Timer(this.components);
-            this.Date = new System.Windows.Forms.Label();
             this.DateTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -55,17 +55,30 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.mainpanel);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1300, 720);
             this.panel1.TabIndex = 0;
             // 
+            // mainpanel
+            // 
+            this.mainpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainpanel.AutoSize = true;
+            this.mainpanel.Location = new System.Drawing.Point(226, 23);
+            this.mainpanel.Name = "mainpanel";
+            this.mainpanel.Size = new System.Drawing.Size(1061, 684);
+            this.mainpanel.TabIndex = 3;
+            // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -76,23 +89,28 @@
             this.label1.Text = "X";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // mainpanel
-            // 
-            this.mainpanel.Location = new System.Drawing.Point(226, 25);
-            this.mainpanel.Name = "mainpanel";
-            this.mainpanel.Size = new System.Drawing.Size(1061, 667);
-            this.mainpanel.TabIndex = 1;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(136)))), ((int)(((byte)(152)))));
             this.panel2.Controls.Add(this.Date);
             this.panel2.Controls.Add(this.Clock);
             this.panel2.Controls.Add(this.panel3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(220, 720);
+            this.panel2.Size = new System.Drawing.Size(220, 718);
             this.panel2.TabIndex = 0;
+            // 
+            // Date
+            // 
+            this.Date.AutoSize = true;
+            this.Date.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Date.ForeColor = System.Drawing.Color.White;
+            this.Date.Location = new System.Drawing.Point(54, 46);
+            this.Date.Name = "Date";
+            this.Date.Size = new System.Drawing.Size(0, 25);
+            this.Date.TabIndex = 2;
             // 
             // Clock
             // 
@@ -106,6 +124,7 @@
             // 
             // panel3
             // 
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.button8);
             this.panel3.Controls.Add(this.button7);
@@ -128,8 +147,9 @@
             this.button8.Size = new System.Drawing.Size(139, 46);
             this.button8.TabIndex = 10000;
             this.button8.TabStop = false;
-            this.button8.Text = "button8";
+            this.button8.Text = "Clinic History";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouseClicked);
             // 
             // button7
             // 
@@ -139,8 +159,9 @@
             this.button7.Size = new System.Drawing.Size(139, 46);
             this.button7.TabIndex = 10000;
             this.button7.TabStop = false;
-            this.button7.Text = "button7";
+            this.button7.Text = "Schedules";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouseClicked);
             // 
             // button6
             // 
@@ -150,8 +171,9 @@
             this.button6.Size = new System.Drawing.Size(139, 46);
             this.button6.TabIndex = 10000;
             this.button6.TabStop = false;
-            this.button6.Text = "button6";
+            this.button6.Text = "Rooms";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouseClicked);
             // 
             // button5
             // 
@@ -161,8 +183,9 @@
             this.button5.Size = new System.Drawing.Size(139, 46);
             this.button5.TabIndex = 10000;
             this.button5.TabStop = false;
-            this.button5.Text = "button5";
+            this.button5.Text = "Doctors";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouseClicked);
             // 
             // button4
             // 
@@ -172,8 +195,10 @@
             this.button4.Size = new System.Drawing.Size(139, 46);
             this.button4.TabIndex = 10000;
             this.button4.TabStop = false;
-            this.button4.Text = "button4";
+            this.button4.Text = "Operations";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouseClicked);
             // 
             // ViewPatientS
             // 
@@ -220,16 +245,6 @@
             this.ClockTimer.Interval = 1000;
             this.ClockTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Date
-            // 
-            this.Date.AutoSize = true;
-            this.Date.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Date.ForeColor = System.Drawing.Color.White;
-            this.Date.Location = new System.Drawing.Point(54, 46);
-            this.Date.Name = "Date";
-            this.Date.Size = new System.Drawing.Size(0, 25);
-            this.Date.TabIndex = 2;
-            // 
             // DateTimer
             // 
             this.DateTimer.Enabled = true;
@@ -268,11 +283,11 @@
         private System.Windows.Forms.Button ViewPatientS;
         private System.Windows.Forms.Button AddPatientS;
         private System.Windows.Forms.Button DashboardS;
-        private System.Windows.Forms.Panel mainpanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Clock;
         private System.Windows.Forms.Timer ClockTimer;
         private System.Windows.Forms.Label Date;
         private System.Windows.Forms.Timer DateTimer;
+        private System.Windows.Forms.Panel mainpanel;
     }
 }

@@ -74,7 +74,7 @@ namespace WindowsFormsApp1.AddPatient
             {
                 MySqlConnection conn = new MySqlConnection(driver);
                 conn.Open();
-                string query = "SELECT * FROM doctoroperation_tbl" +
+                string query = "SELECT *, doctor_tbl.* FROM doctoroperation_tbl" +
                     " LEFT JOIN doctor_tbl " +
                     "ON doctoroperation_tbl.DoctorID = doctor_tbl.DoctorID " +
                     "WHERE operationcode = @operationcode";
@@ -88,9 +88,9 @@ namespace WindowsFormsApp1.AddPatient
                         reader.GetString("FirstName"),
                         reader.GetString("MiddleName"),
                         reader.GetString("LastName"),
-                        reader.GetInt32("Age").ToString(),
+                        reader.GetInt32("Age"),
                         reader.GetString("Pin"),
-                        reader.GetDateTime("DateHired").ToString("yyyy-MM-dd"),
+                        reader.GetDateTime("DateHired"),
                         reader.GetString("Gender")
                      );
                     doctorList.Add(doctor);
@@ -154,7 +154,7 @@ namespace WindowsFormsApp1.AddPatient
             return true;
         }
 
-        public int insertPatient(Patient patient)
+        public int insertPatient(Patient patient,int frontDeskId)
         {
             try
             {
@@ -175,9 +175,12 @@ namespace WindowsFormsApp1.AddPatient
                     command.Parameters.AddWithValue("@ContactNumber", patient.ContactNumber);
                 }
                 command.Parameters.AddWithValue("@BirthDate", patient.BirthDate.ToString("yyyy-MM-dd"));
-                object result = command.ExecuteScalar(); 
+                object result = command.ExecuteScalar();
+                int patientid = Convert.ToInt32(result);
                 conn.Close();
-                return Convert.ToInt32(result);
+
+                insertPatientFrontDesk(patientid,frontDeskId);
+                return patientid;
 
             }
             catch (MySqlException e)
@@ -185,6 +188,25 @@ namespace WindowsFormsApp1.AddPatient
                 MessageBox.Show("Error from insertPatient DB" + e.Message);
             }
             return 0;
+        }
+
+        private void insertPatientFrontDesk(int patientid, int frontDeskId)
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(driver);
+                conn.Open();
+                string query = "INSERT INTO frontdeskpatient_tbl ( FrontDeskID, PatientId) VALUES (@FrontDeskID, @PatientID)";
+                MySqlCommand command = new MySqlCommand(query, conn);
+                command.Parameters.AddWithValue("@FrontDeskID", frontDeskId);
+                command.Parameters.AddWithValue("@PatientID", patientid);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("Error from insertPatientFrontdek() DB" + e.Message);
+            }
         }
 
         public bool insertPatientOperation(PatientOperation patientOperation)
@@ -219,6 +241,8 @@ namespace WindowsFormsApp1.AddPatient
                 }
                 trans.Commit();
                 conn.Close();
+
+        
                 return true;
             }
             catch (MySqlException ex)

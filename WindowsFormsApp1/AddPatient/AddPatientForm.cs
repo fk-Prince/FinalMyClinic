@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Google.Protobuf.WellKnownTypes;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WindowsFormsApp1.AddPatient
@@ -24,8 +25,11 @@ namespace WindowsFormsApp1.AddPatient
         private Operation selectedOperation;
         private Doctor selectedDoctor;
         private Dictionary<Operation, Doctor> doctorOperation = new Dictionary<Operation, Doctor>();
-        public AddPatientForm()
+        private Operation lastSelected;
+        private FrontDesk frontDesk;
+        public AddPatientForm(FrontDesk frontDesk)
         {
+            this.frontDesk = frontDesk;
             InitializeComponent();
             roomSettings();
             operationSettings();
@@ -190,6 +194,7 @@ namespace WindowsFormsApp1.AddPatient
 
             doctorOperation[selectedOperation] = selectedDoctor;
             tbListOperation.Text += o;
+            lastSelected = selectedOperation;
             MessageBox.Show("Operation Added", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             comboDoctor.SelectedItem = null;
             comboDoctor.SelectedIndex = -1;
@@ -248,12 +253,18 @@ namespace WindowsFormsApp1.AddPatient
             {
                 tbListOperation.Text += t;
             }
+
+            if (lastSelected != null && doctorOperation.ContainsKey(lastSelected))
+            {
+                doctorOperation.Remove(lastSelected);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             checkEmptyInputs();
         }
+
         public bool checkEmptyInputs()
         {
             string fname = FirstName.Text;
@@ -322,16 +333,16 @@ namespace WindowsFormsApp1.AddPatient
             }
 
             double bill = 0;
-            if (double.TryParse(TotalBill.Text, out _))
+            if (!double.TryParse(TotalBill.Text, out _))
             {
                 MessageBox.Show("Invalid Total Bill", "Invalid Total Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            int roomNo = int.Parse(comboRoom.SelectedItem.ToString());
+
 
             Patient patient = new Patient(fname, mname, lname, ageInt, gender, address, contact, bday.Date);
-            int patientid = db.insertPatient(patient);
-
-            int roomNo = int.Parse(comboRoom.SelectedItem.ToString());
+            int patientid = db.insertPatient(patient,frontDesk.getId());
             if (patientid == 0)
             {
                 return false;

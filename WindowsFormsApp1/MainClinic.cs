@@ -6,12 +6,14 @@ using WindowsFormsApp1.ViewPatients;
 
 namespace WindowsFormsApp1
 {
-    public partial class Sidebar : Form
+    public partial class MainClinic : Form
     {
 
         private Button lastButtonClicked;
-        public Sidebar()
+        private FrontDesk FrontDesk;
+        public MainClinic(FrontDesk frontDesk)
         {
+            this.FrontDesk = frontDesk;
             InitializeComponent();
             Clock.Text = DateTime.Now.ToString("HH:mm:ss");
             Date.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -26,18 +28,20 @@ namespace WindowsFormsApp1
 
         }
 
-        public void LoadForm(Form form)
+        public void LoadForm(object form)
         {
             if (mainpanel.Controls.Count > 0)
             {
                 mainpanel.Controls.Clear();
             }
-            form.TopLevel = false;
-            form.Dock = DockStyle.Fill;
-            mainpanel.Controls.Add(form);
-            mainpanel.Tag = form;
-            form.Show();
+            Form f = form as Form;
+            f.TopLevel = false;
+            f.Dock = DockStyle.Fill;
+            mainpanel.Controls.Add(f);
+            mainpanel.Tag = f;
+            f.Show();
         }
+
 
         private void mouseClicked(object sender, MouseEventArgs e)
         {
@@ -59,7 +63,7 @@ namespace WindowsFormsApp1
 
         private void AddPatientS_Click(object sender, EventArgs e)
         {
-            AddPatientForm addPatientForm = new AddPatientForm();
+            AddPatientForm addPatientForm = new AddPatientForm(FrontDesk);
             LoadForm(addPatientForm);
         }
 
@@ -71,6 +75,12 @@ namespace WindowsFormsApp1
         private void timer2_Tick(object sender, EventArgs e)
         {
             Date.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OperationForm operationForm = new OperationForm(FrontDesk);
+            LoadForm(operationForm);
         }
     }
 }

@@ -47,6 +47,9 @@
             this.panel13 = new System.Windows.Forms.Panel();
             this.tbDoctorDiagnosis = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.comboDoctorAssigned = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.tbRoomNo = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -56,8 +59,6 @@
             this.panel10 = new System.Windows.Forms.Panel();
             this.datepickDateAdmitted = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.datepickBirthDay = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -85,17 +86,16 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.totalPatient = new System.Windows.Forms.Label();
-            this.comboDoctorAssigned = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.PatientList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.PatientDetails.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel13.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel10.SuspendLayout();
-            this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -296,6 +296,36 @@
             this.label14.TabIndex = 0;
             this.label14.Text = "Doctor Diagnosis";
             // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.comboDoctorAssigned);
+            this.panel9.Controls.Add(this.label10);
+            this.panel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.panel9.Location = new System.Drawing.Point(406, 248);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(350, 27);
+            this.panel9.TabIndex = 5;
+            // 
+            // comboDoctorAssigned
+            // 
+            this.comboDoctorAssigned.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboDoctorAssigned.FormattingEnabled = true;
+            this.comboDoctorAssigned.Location = new System.Drawing.Point(117, 3);
+            this.comboDoctorAssigned.Name = "comboDoctorAssigned";
+            this.comboDoctorAssigned.Size = new System.Drawing.Size(230, 21);
+            this.comboDoctorAssigned.TabIndex = 1;
+            this.comboDoctorAssigned.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(3, 5);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(108, 17);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Doctor Assigned";
+            // 
             // panel12
             // 
             this.panel12.Controls.Add(this.tbRoomNo);
@@ -382,26 +412,6 @@
             this.label11.TabIndex = 0;
             this.label11.Text = "Date-Admitted";
             // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.comboDoctorAssigned);
-            this.panel9.Controls.Add(this.label10);
-            this.panel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.panel9.Location = new System.Drawing.Point(406, 248);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(350, 27);
-            this.panel9.TabIndex = 5;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 5);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(108, 17);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Doctor Assigned";
-            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.datepickBirthDay);
@@ -445,6 +455,7 @@
             // 
             this.tbAddress.Location = new System.Drawing.Point(94, 4);
             this.tbAddress.Name = "tbAddress";
+            this.tbAddress.ReadOnly = true;
             this.tbAddress.Size = new System.Drawing.Size(639, 20);
             this.tbAddress.TabIndex = 1;
             // 
@@ -661,16 +672,6 @@
             this.totalPatient.TabIndex = 3;
             this.totalPatient.Text = "...";
             // 
-            // comboDoctorAssigned
-            // 
-            this.comboDoctorAssigned.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboDoctorAssigned.FormattingEnabled = true;
-            this.comboDoctorAssigned.Location = new System.Drawing.Point(117, 3);
-            this.comboDoctorAssigned.Name = "comboDoctorAssigned";
-            this.comboDoctorAssigned.Size = new System.Drawing.Size(230, 21);
-            this.comboDoctorAssigned.TabIndex = 1;
-            this.comboDoctorAssigned.TabStop = false;
-            // 
             // ViewPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -693,14 +694,14 @@
             this.panel14.PerformLayout();
             this.panel13.ResumeLayout(false);
             this.panel13.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);

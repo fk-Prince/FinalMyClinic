@@ -33,10 +33,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Exit = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.checkPassword = new System.Windows.Forms.CheckBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.Password = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -60,10 +60,10 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.Exit);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.LoginButton);
+            this.panel1.Controls.Add(this.checkPassword);
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.Password);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -116,16 +116,17 @@
             this.pictureBox4.TabIndex = 12;
             this.pictureBox4.TabStop = false;
             // 
-            // button3
+            // Exit
             // 
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(281, 622);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(94, 32);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "EXIT";
-            this.button3.UseVisualStyleBackColor = false;
+            this.Exit.BackColor = System.Drawing.Color.White;
+            this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Exit.Location = new System.Drawing.Point(281, 622);
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(94, 32);
+            this.Exit.TabIndex = 11;
+            this.Exit.Text = "EXIT";
+            this.Exit.UseVisualStyleBackColor = false;
+            this.Exit.Click += new System.EventHandler(this.ExitButton);
             // 
             // button2
             // 
@@ -138,27 +139,27 @@
             this.button2.Text = "Doctor";
             this.button2.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // LoginButton
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(146, 524);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(229, 36);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "LOGIN";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.LoginButton.BackColor = System.Drawing.Color.White;
+            this.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoginButton.Location = new System.Drawing.Point(146, 524);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(229, 36);
+            this.LoginButton.TabIndex = 9;
+            this.LoginButton.Text = "LOGIN";
+            this.LoginButton.UseVisualStyleBackColor = false;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
-            // checkBox1
+            // checkPassword
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(379, 478);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkPassword.AutoSize = true;
+            this.checkPassword.Location = new System.Drawing.Point(379, 478);
+            this.checkPassword.Name = "checkPassword";
+            this.checkPassword.Size = new System.Drawing.Size(15, 14);
+            this.checkPassword.TabIndex = 8;
+            this.checkPassword.UseVisualStyleBackColor = true;
             // 
             // pictureBox3
             // 
@@ -263,11 +264,11 @@
         private System.Windows.Forms.TextBox Username;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.TextBox Password;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.CheckBox checkPassword;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
