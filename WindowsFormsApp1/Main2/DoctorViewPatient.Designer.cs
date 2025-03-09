@@ -33,6 +33,7 @@
             this.PatientList = new System.Windows.Forms.TabPage();
             this.patientGrid = new System.Windows.Forms.DataGridView();
             this.PatientDetails = new System.Windows.Forms.TabPage();
+            this.limit = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
             this.datePickerSchedule = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
@@ -45,7 +46,7 @@
             this.panel11 = new System.Windows.Forms.Panel();
             this.tbContact = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.panel10 = new System.Windows.Forms.Panel();
             this.comboOperations = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -107,6 +108,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(787, 431);
             this.tabControl.TabIndex = 1;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabChanged);
             // 
             // PatientList
             // 
@@ -146,11 +148,12 @@
             // 
             this.PatientDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(230)))), ((int)(((byte)(237)))));
             this.PatientDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PatientDetails.Controls.Add(this.limit);
             this.PatientDetails.Controls.Add(this.panel14);
             this.PatientDetails.Controls.Add(this.panel13);
             this.PatientDetails.Controls.Add(this.panel12);
             this.PatientDetails.Controls.Add(this.panel11);
-            this.PatientDetails.Controls.Add(this.button1);
+            this.PatientDetails.Controls.Add(this.SaveButton);
             this.PatientDetails.Controls.Add(this.panel10);
             this.PatientDetails.Controls.Add(this.panel9);
             this.PatientDetails.Controls.Add(this.panel8);
@@ -167,6 +170,15 @@
             this.PatientDetails.TabIndex = 1;
             this.PatientDetails.Text = "Patient Details";
             // 
+            // limit
+            // 
+            this.limit.AutoSize = true;
+            this.limit.Location = new System.Drawing.Point(475, 371);
+            this.limit.Name = "limit";
+            this.limit.Size = new System.Drawing.Size(110, 13);
+            this.limit.TabIndex = 10;
+            this.limit.Text = "Up to 200 characters.";
+            // 
             // panel14
             // 
             this.panel14.Controls.Add(this.datePickerSchedule);
@@ -180,7 +192,6 @@
             // 
             this.datePickerSchedule.CalendarMonthBackground = System.Drawing.Color.White;
             this.datePickerSchedule.CustomFormat = "";
-            this.datePickerSchedule.Enabled = false;
             this.datePickerSchedule.Location = new System.Drawing.Point(79, 7);
             this.datePickerSchedule.Name = "datePickerSchedule";
             this.datePickerSchedule.Size = new System.Drawing.Size(217, 20);
@@ -206,6 +217,7 @@
             // 
             // tbEndTime
             // 
+            this.tbEndTime.Enabled = false;
             this.tbEndTime.Location = new System.Drawing.Point(79, 7);
             this.tbEndTime.Name = "tbEndTime";
             this.tbEndTime.Size = new System.Drawing.Size(217, 20);
@@ -235,6 +247,7 @@
             this.tbStartTime.Name = "tbStartTime";
             this.tbStartTime.Size = new System.Drawing.Size(217, 20);
             this.tbStartTime.TabIndex = 1;
+            this.tbStartTime.TextChanged += new System.EventHandler(this.tbStartTime_TextChanged);
             // 
             // label12
             // 
@@ -272,16 +285,17 @@
             this.label11.TabIndex = 0;
             this.label11.Text = "Contact Number";
             // 
-            // button1
+            // SaveButton
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(696, 374);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = false;
+            this.SaveButton.BackColor = System.Drawing.Color.White;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Location = new System.Drawing.Point(696, 374);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 8;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // panel10
             // 
@@ -300,6 +314,7 @@
             this.comboOperations.Name = "comboOperations";
             this.comboOperations.Size = new System.Drawing.Size(217, 21);
             this.comboOperations.TabIndex = 1;
+            this.comboOperations.SelectedIndexChanged += new System.EventHandler(this.comboOperations_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -323,22 +338,23 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(7, 5);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 13);
+            this.label9.Size = new System.Drawing.Size(83, 18);
             this.label9.TabIndex = 6;
             this.label9.Text = "Diagnosis";
             // 
             // tbDiagnosis
             // 
-            this.tbDiagnosis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDiagnosis.Location = new System.Drawing.Point(-1, 24);
+            this.tbDiagnosis.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbDiagnosis.Location = new System.Drawing.Point(0, 26);
+            this.tbDiagnosis.MaxLength = 200;
             this.tbDiagnosis.Multiline = true;
             this.tbDiagnosis.Name = "tbDiagnosis";
-            this.tbDiagnosis.Size = new System.Drawing.Size(298, 157);
+            this.tbDiagnosis.Size = new System.Drawing.Size(297, 155);
             this.tbDiagnosis.TabIndex = 5;
+            this.tbDiagnosis.TextChanged += new System.EventHandler(this.tbDiagnosis_TextChanged);
             // 
             // panel8
             // 
@@ -371,9 +387,9 @@
             // 
             this.panel7.Controls.Add(this.datePickerBDay);
             this.panel7.Controls.Add(this.label7);
-            this.panel7.Location = new System.Drawing.Point(129, 234);
+            this.panel7.Location = new System.Drawing.Point(15, 236);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(299, 33);
+            this.panel7.Size = new System.Drawing.Size(413, 33);
             this.panel7.TabIndex = 4;
             // 
             // datePickerBDay
@@ -381,9 +397,9 @@
             this.datePickerBDay.CalendarMonthBackground = System.Drawing.Color.White;
             this.datePickerBDay.CustomFormat = "";
             this.datePickerBDay.Enabled = false;
-            this.datePickerBDay.Location = new System.Drawing.Point(64, 7);
+            this.datePickerBDay.Location = new System.Drawing.Point(134, 5);
             this.datePickerBDay.Name = "datePickerBDay";
-            this.datePickerBDay.Size = new System.Drawing.Size(224, 20);
+            this.datePickerBDay.Size = new System.Drawing.Size(268, 20);
             this.datePickerBDay.TabIndex = 1;
             // 
             // label7
@@ -399,24 +415,24 @@
             // 
             this.panel6.Controls.Add(this.tbAge);
             this.panel6.Controls.Add(this.label6);
-            this.panel6.Location = new System.Drawing.Point(15, 234);
+            this.panel6.Location = new System.Drawing.Point(173, 287);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(93, 33);
+            this.panel6.Size = new System.Drawing.Size(141, 33);
             this.panel6.TabIndex = 3;
             // 
             // tbAge
             // 
             this.tbAge.BackColor = System.Drawing.Color.White;
             this.tbAge.Enabled = false;
-            this.tbAge.Location = new System.Drawing.Point(35, 8);
+            this.tbAge.Location = new System.Drawing.Point(59, 8);
             this.tbAge.Name = "tbAge";
-            this.tbAge.Size = new System.Drawing.Size(39, 20);
+            this.tbAge.Size = new System.Drawing.Size(71, 20);
             this.tbAge.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 11);
+            this.label6.Location = new System.Drawing.Point(13, 11);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 13);
             this.label6.TabIndex = 0;
@@ -584,6 +600,7 @@
             this.PatientList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.patientGrid)).EndInit();
             this.PatientDetails.ResumeLayout(false);
+            this.PatientDetails.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             this.panel13.ResumeLayout(false);
@@ -651,7 +668,7 @@
         private System.Windows.Forms.TextBox tbDiagnosis;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.ComboBox comboOperations;
         private System.Windows.Forms.Label label10;
@@ -667,5 +684,6 @@
         private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DateTimePicker datePickerSchedule;
+        private System.Windows.Forms.Label limit;
     }
 }

@@ -17,7 +17,6 @@ namespace ClinicSystem
         private string address;
         private string contactNumber;
         private DateTime birthDate;
-        private string diagnosis;
 
         public Patient(string firstName, string middleName, string lastName, int age, string gender, string address, string contactNumber, DateTime birthDate)
         {
@@ -30,8 +29,9 @@ namespace ClinicSystem
             this.contactNumber = contactNumber;
             this.birthDate = birthDate.Date;
         }
-        public Patient(int id, string firstName, string middleName, string lastName, int age, string gender, string address, string contactNumber, DateTime birthDate,string diagnosis)
+        public Patient(int patientid ,string firstName, string middleName, string lastName, int age, string gender, string address, string contactNumber, DateTime birthDate)
         {
+            this.patientid = patientid;
             this.firstName = firstName;
             this.middleName = middleName;
             this.lastName = lastName;
@@ -40,11 +40,8 @@ namespace ClinicSystem
             this.address = address;
             this.contactNumber = contactNumber;
             this.birthDate = birthDate.Date;
-            this.diagnosis = diagnosis;
-            this.patientid = id;
         }
 
-        public string Diagnosis { get => diagnosis; }
         public string FirstName { get => firstName; }
         public string MiddleName { get => middleName;}
         public string LastName { get => lastName;  }

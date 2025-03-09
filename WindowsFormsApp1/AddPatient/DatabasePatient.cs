@@ -75,8 +75,8 @@ namespace ClinicSystem
             {
                 MySqlConnection conn = new MySqlConnection(driver);
                 conn.Open();
-                string query = "SELECT *, doctor_tbl.* FROM doctoroperation_tbl" +
-                    " LEFT JOIN doctor_tbl " +
+                string query = "SELECT *, doctor_tbl.* FROM doctoroperation_tbl " +
+                    "LEFT JOIN doctor_tbl " +
                     "ON doctoroperation_tbl.DoctorID = doctor_tbl.DoctorID " +
                     "WHERE operationcode = @operationcode";
                 MySqlCommand command = new MySqlCommand(query, conn);
@@ -123,10 +123,10 @@ namespace ClinicSystem
             {
                 MessageBox.Show("Error from getLastOperationNo DB" + e.Message);
             }
-            return "1";
+            return "0";
         }
 
-        public bool isScheduleAvailable(int id, DateTime date, TimeSpan start, TimeSpan end)
+        public bool isScheduleAvailable(int doctorId, DateTime dateSchedule, TimeSpan startTime, TimeSpan endTime)
         {
             try
             {
@@ -139,14 +139,11 @@ namespace ClinicSystem
 
 
                 MySqlCommand command = new MySqlCommand(query, conn);
-                command.Parameters.AddWithValue("@DoctorID", id);
-                command.Parameters.AddWithValue("@DateSchedule", date.ToString("yyyy-MM-dd"));
-                command.Parameters.AddWithValue("@StartTime", start);
-                command.Parameters.AddWithValue("@EndTime", end);
-
+                command.Parameters.AddWithValue("@DoctorID", doctorId);
+                command.Parameters.AddWithValue("@DateSchedule", dateSchedule.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@StartTime", startTime);
+                command.Parameters.AddWithValue("@EndTime", endTime);
                 MySqlDataReader reader = command.ExecuteReader();
-
-           
                 return reader.Read() ? false : true;
             }
             catch (MySqlException ex)
@@ -253,7 +250,6 @@ namespace ClinicSystem
             }
             return false;
         }
-
         private void roomSetting(int roomNo)
         {
             try
@@ -280,10 +276,11 @@ namespace ClinicSystem
                 MySqlConnection conn = new MySqlConnection(driver);
                 conn.Open();
                 string query =
-                    "SELECT appointment_tbl.*, patientoperation_tbl.*,patient_tbl.* " +
+                    "SELECT appointment_tbl.*, patientoperation_tbl.*,patient_tbl.*, operation_tbl.Name, operation_tbl.Duration " +
                     "FROM appointment_tbl " +
                     "LEFT JOIN patientoperation_tbl ON patientoperation_tbl.PatientOperationNo = appointment_tbl.PatientOperationNo " +
                     "LEFT JOIN patient_tbl on patientoperation_tbl.PatientID = patient_tbl.PatientId " +
+                    "LEFT JOIN operation_tbl on appointment_tbl.OperationCode = operation_tbl.OperationCode " +  
                     "WHERE DoctorID = @DoctorID";
 
                 MySqlCommand command = new MySqlCommand(query, conn);
@@ -291,7 +288,9 @@ namespace ClinicSystem
                 MySqlDataReader reader = command.ExecuteReader(); 
                 while (reader.Read())
                 {
-                    string diagnosis = reader["Diagnosis"] != DBNull.Value ? reader.GetString("Diagnosis") : string.Empty;
+
+                    int roomNo = reader.GetInt32("RoomNo");
+                    string diagnosis = reader["Diagnosis"] != DBNull.Value ? reader.GetString("Diagnosis") : "";
                     Patient patient = new Patient(
                         reader.GetInt32("PatientID"),
                         reader.GetString("FirstName"),
@@ -301,16 +300,19 @@ namespace ClinicSystem
                         reader.GetString("Gender"),
                         reader.GetString("Address"),
                         reader.GetString("ContactNumber"),
-                        reader.GetDateTime("BirthDate"),
-                        diagnosis
+                        reader.GetDateTime("BirthDate")
                      );
 
                     DateTime dateScheduled = reader.GetDateTime("DateSchedule");
                     TimeSpan startTime = reader.GetTimeSpan("StartTime");
                     TimeSpan endTime = reader.GetTimeSpan("EndTime");
-                    int roomNo = reader.GetInt32("RoomNo");
+                    TimeSpan duration = reader.GetTimeSpan("Duration");
+                    string operationName = reader.GetString("Name");
+                    int detailid = reader.GetInt32("DetailID");
+                    DoctorPatientSchedule schedule = new DoctorPatientSchedule(dateScheduled, startTime, endTime,operationName, detailid, duration, diagnosis);
 
-                    PatientAppointment patientAppointment = new PatientAppointment(roomNo, patient, dateScheduled, startTime, endTime);
+
+                    PatientAppointment patientAppointment = new PatientAppointment(roomNo, patient, schedule);
                     patientAppointments.Add(patientAppointment);
                 }
 
@@ -324,6 +326,31 @@ namespace ClinicSystem
 
             return patientAppointments;
         }
+
+        public bool updateSchedule(DoctorPatientSchedule schedule)
+        {
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(driver);
+                conn.Open();
+                string query = "UPDATE appointment_tbl SET DateSchedule = @DateSchedule, StartTime = @StartTime, EndTime = @EndTime, Diagnosis = @Diagnosis WHERE DetailID = @DetailID";
+                MySqlCommand command = new MySqlCommand(query, conn);
+                command.Parameters.AddWithValue("@DateSchedule", schedule.ScheduleDate);
+                command.Parameters.AddWithValue("@StartTime", schedule.StartTime);
+                command.Parameters.AddWithValue("@EndTime", schedule.EndTime);
+                command.Parameters.AddWithValue("@Diagnosis", schedule.Diagnosis);
+                command.Parameters.AddWithValue("@DetailID", schedule.DetailID);
+                command.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error from updateSchedule DB" + ex.Message);
+            }
+            return false;
+        }
+
         private const string driver = "server=localhost;username=root;pwd=root;database=myclinic_db";
     }
 }

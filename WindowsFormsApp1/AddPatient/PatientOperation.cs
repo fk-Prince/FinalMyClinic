@@ -12,9 +12,7 @@ namespace ClinicSystem
         private int roomNo;
         private int patientId;
         private double bill;
-        //private DateTime dateSchedule;
-        //private TimeSpan startTime;
-        //private TimeSpan endTime;
+
         List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> schedules = new List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>>();
 
         public PatientOperation(int roomNo, int patientId, List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> schedules, double bill)

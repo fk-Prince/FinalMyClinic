@@ -108,6 +108,7 @@
     <Compile Include="AddPatient\PatientAppointment.cs" />
     <Compile Include="AddPatient\Patient.cs" />
     <Compile Include="AddPatient\PatientOperation.cs" />
+    <Compile Include="Main2\DoctorPatientSchedule.cs" />
     <Compile Include="Main2\DoctorClinic.cs">
       <SubType>Form</SubType>
     </Compile>

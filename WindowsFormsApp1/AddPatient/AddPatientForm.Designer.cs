@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button3 = new System.Windows.Forms.Button();
+            this.AddPatient = new System.Windows.Forms.Button();
             this.panel19 = new System.Windows.Forms.Panel();
             this.TotalBill = new System.Windows.Forms.TextBox();
             this.textBox18 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.RemoveStack = new System.Windows.Forms.Button();
             this.checkEndTime = new System.Windows.Forms.CheckBox();
             this.tbListOperation = new System.Windows.Forms.TextBox();
             this.panel18 = new System.Windows.Forms.Panel();
@@ -44,7 +44,7 @@
             this.ContactNo = new System.Windows.Forms.TextBox();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Add = new System.Windows.Forms.Button();
             this.panel16 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
@@ -119,18 +119,18 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button3
+            // AddPatient
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(546, 448);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(224, 45);
-            this.button3.TabIndex = 10029;
-            this.button3.Text = "Add Patient";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.AddPatient.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddPatient.BackColor = System.Drawing.Color.White;
+            this.AddPatient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddPatient.Location = new System.Drawing.Point(546, 448);
+            this.AddPatient.Name = "AddPatient";
+            this.AddPatient.Size = new System.Drawing.Size(224, 45);
+            this.AddPatient.TabIndex = 10029;
+            this.AddPatient.Text = "Add Patient";
+            this.AddPatient.UseVisualStyleBackColor = false;
+            this.AddPatient.Click += new System.EventHandler(this.AddPatient_Click);
             // 
             // panel19
             // 
@@ -171,18 +171,18 @@
             this.label17.TabIndex = 10000;
             this.label17.Text = "Total Bill";
             // 
-            // button2
+            // RemoveStack
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.BackgroundImage = global::ClinicSystem.Properties.Resources.minus;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(358, 244);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(18, 18);
-            this.button2.TabIndex = 10028;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.RemoveStack.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.RemoveStack.BackgroundImage = global::ClinicSystem.Properties.Resources.minus;
+            this.RemoveStack.FlatAppearance.BorderSize = 0;
+            this.RemoveStack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RemoveStack.Location = new System.Drawing.Point(358, 244);
+            this.RemoveStack.Name = "RemoveStack";
+            this.RemoveStack.Size = new System.Drawing.Size(18, 18);
+            this.RemoveStack.TabIndex = 10028;
+            this.RemoveStack.UseVisualStyleBackColor = true;
+            this.RemoveStack.Click += new System.EventHandler(this.RemoveStack_Click);
             // 
             // checkEndTime
             // 
@@ -280,18 +280,18 @@
             this.label15.TabIndex = 10000;
             this.label15.Text = "Contact Number";
             // 
-            // button1
+            // Add
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.BackgroundImage = global::ClinicSystem.Properties.Resources.add;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(327, 244);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(18, 18);
-            this.button1.TabIndex = 10025;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Add.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Add.BackgroundImage = global::ClinicSystem.Properties.Resources.add;
+            this.Add.FlatAppearance.BorderSize = 0;
+            this.Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Add.Location = new System.Drawing.Point(327, 244);
+            this.Add.Name = "Add";
+            this.Add.Size = new System.Drawing.Size(18, 18);
+            this.Add.TabIndex = 10025;
+            this.Add.UseVisualStyleBackColor = true;
+            this.Add.Click += new System.EventHandler(this.AddStack_Click);
             // 
             // panel16
             // 
@@ -820,11 +820,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.AddPatient);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel19);
             this.panel1.Controls.Add(this.panel4);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.RemoveStack);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.tbListOperation);
@@ -833,7 +833,7 @@
             this.panel1.Controls.Add(this.panel8);
             this.panel1.Controls.Add(this.panel17);
             this.panel1.Controls.Add(this.panel9);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.Add);
             this.panel1.Controls.Add(this.panel10);
             this.panel1.Controls.Add(this.panel16);
             this.panel1.Controls.Add(this.panel11);
@@ -899,12 +899,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button AddPatient;
         private System.Windows.Forms.Panel panel19;
         private System.Windows.Forms.TextBox TotalBill;
         private System.Windows.Forms.TextBox textBox18;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button RemoveStack;
         private System.Windows.Forms.CheckBox checkEndTime;
         private System.Windows.Forms.TextBox tbListOperation;
         private System.Windows.Forms.Panel panel18;
@@ -915,7 +915,7 @@
         private System.Windows.Forms.TextBox ContactNo;
         private System.Windows.Forms.TextBox textBox20;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Add;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Panel panel13;

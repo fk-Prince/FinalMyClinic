@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClinicSystem.AddPatient
 {
@@ -14,23 +11,19 @@ namespace ClinicSystem.AddPatient
 
         private int roomNo;
         private Patient patient;
-        private DateTime scheduleDate;
-        private TimeSpan startTime;
-        private TimeSpan endTime;
+        private DoctorPatientSchedule schedules;
 
-        public PatientAppointment(int roomNo, Patient patient, DateTime scheduleDate, TimeSpan startTime, TimeSpan endTime)
+
+        public PatientAppointment(int roomNo, Patient patient, DoctorPatientSchedule schedules)
         {
             this.roomNo = roomNo;
             this.patient = patient;
-            this.scheduleDate = scheduleDate;
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.schedules = schedules;
         }
 
+        public DoctorPatientSchedule Schedules { get => schedules; }
         public int RoomNo { get => roomNo; }
         public Patient Patient { get => patient; }
-        public DateTime ScheduleDate { get => scheduleDate;  }
-        public TimeSpan StartTime { get => startTime; }
-        public TimeSpan EndTime { get => endTime;  }
+  
     }
 }
