@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace ClinicSystem
 {
     partial class MainClinic
     {
@@ -251,14 +251,14 @@
             this.DateTimer.Interval = 72000000;
             this.DateTimer.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // Sidebar
+            // MainClinic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 720);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Sidebar";
+            this.Name = "MainClinic";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sidebar";
             this.panel1.ResumeLayout(false);

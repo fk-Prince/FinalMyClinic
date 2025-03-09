@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1.AddPatient
+﻿namespace ClinicSystem
 {
     partial class AddPatientForm
     {
@@ -174,7 +174,7 @@
             // button2
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.minus;
+            this.button2.BackgroundImage = global::ClinicSystem.Properties.Resources.minus;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(358, 244);
@@ -283,7 +283,7 @@
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.add;
+            this.button1.BackgroundImage = global::ClinicSystem.Properties.Resources.add;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(327, 244);
@@ -563,6 +563,7 @@
             this.Age.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Age.Location = new System.Drawing.Point(40, 2);
             this.Age.Name = "Age";
+            this.Age.ReadOnly = true;
             this.Age.Size = new System.Drawing.Size(41, 20);
             this.Age.TabIndex = 5;
             this.Age.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -603,6 +604,7 @@
             this.BirthDate.Name = "BirthDate";
             this.BirthDate.Size = new System.Drawing.Size(200, 20);
             this.BirthDate.TabIndex = 7;
+            this.BirthDate.ValueChanged += new System.EventHandler(this.BirthDate_ValueChanged);
             // 
             // textBox11
             // 

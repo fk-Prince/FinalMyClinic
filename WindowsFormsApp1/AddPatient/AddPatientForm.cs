@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Numerics;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Google.Protobuf.WellKnownTypes;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace WindowsFormsApp1.AddPatient
+namespace ClinicSystem
 {
     public partial class AddPatientForm : Form
     {
-        private DatabaseAddPatient db = new DatabaseAddPatient();
+        private DatabasePatient db = new DatabasePatient();
         private List<Operation> operations;
         private List<string> rooms;
         private List<Doctor> doctors;
@@ -25,8 +17,10 @@ namespace WindowsFormsApp1.AddPatient
         private Operation selectedOperation;
         private Doctor selectedDoctor;
         private Dictionary<Operation, Doctor> doctorOperation = new Dictionary<Operation, Doctor>();
+        private List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> tupleSchedule = new List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>>();
         private Operation lastSelected;
         private FrontDesk frontDesk;
+
         public AddPatientForm(FrontDesk frontDesk)
         {
             this.frontDesk = frontDesk;
@@ -203,7 +197,7 @@ namespace WindowsFormsApp1.AddPatient
             EndTime.Text = "";
             calculateTotalBill();
         }
-        private List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> tupleSchedule = new List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>>();
+
 
 
         private void calculateTotalBill()
@@ -333,7 +327,7 @@ namespace WindowsFormsApp1.AddPatient
             }
 
             double bill = 0;
-            if (!double.TryParse(TotalBill.Text, out _))
+            if (!double.TryParse(TotalBill.Text, out bill))
             {
                 MessageBox.Show("Invalid Total Bill", "Invalid Total Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -372,6 +366,27 @@ namespace WindowsFormsApp1.AddPatient
             }
 
             return false;
+        }
+
+        private void Age_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BirthDate_ValueChanged(object sender, EventArgs e)
+        {
+
+            if (DateTime.TryParse(BirthDate.Text, out DateTime birthDate))
+            {
+                DateTime todayDate = DateTime.Now;
+                int age = todayDate.Year - birthDate.Year;
+
+                if (todayDate.Month < birthDate.Month || (todayDate.Month == birthDate.Month && todayDate.Day < birthDate.Day))
+                {
+                    age--;  
+                }
+                Age.Text = age.ToString();
+            }
         }
     }
 }

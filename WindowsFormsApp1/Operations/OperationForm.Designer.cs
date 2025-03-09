@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace ClinicSystem
 {
     partial class OperationForm
     {
@@ -37,6 +37,10 @@
             this.SearchBar = new System.Windows.Forms.TextBox();
             this.flowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.addOperationPanel = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.pictureDuration = new System.Windows.Forms.PictureBox();
+            this.pictureName = new System.Windows.Forms.PictureBox();
+            this.pictureCode = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -57,22 +61,18 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.opCode = new System.Windows.Forms.TextBox();
-            this.pictureCode = new System.Windows.Forms.PictureBox();
-            this.pictureName = new System.Windows.Forms.PictureBox();
-            this.pictureDuration = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.addOperationPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureDuration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureCode)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureCode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // operationFlowPanel
@@ -137,8 +137,9 @@
             // 
             // flowLayout
             // 
+            this.flowLayout.AutoScroll = true;
             this.flowLayout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayout.Location = new System.Drawing.Point(1, 118);
+            this.flowLayout.Location = new System.Drawing.Point(16, 118);
             this.flowLayout.Name = "flowLayout";
             this.flowLayout.Size = new System.Drawing.Size(1033, 537);
             this.flowLayout.TabIndex = 3;
@@ -162,6 +163,42 @@
             this.addOperationPanel.Size = new System.Drawing.Size(457, 525);
             this.addOperationPanel.TabIndex = 4;
             this.addOperationPanel.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Silver;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(197, 482);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 27);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "BACK";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // pictureDuration
+            // 
+            this.pictureDuration.Location = new System.Drawing.Point(430, 154);
+            this.pictureDuration.Name = "pictureDuration";
+            this.pictureDuration.Size = new System.Drawing.Size(16, 16);
+            this.pictureDuration.TabIndex = 11;
+            this.pictureDuration.TabStop = false;
+            // 
+            // pictureName
+            // 
+            this.pictureName.Location = new System.Drawing.Point(431, 103);
+            this.pictureName.Name = "pictureName";
+            this.pictureName.Size = new System.Drawing.Size(16, 16);
+            this.pictureName.TabIndex = 10;
+            this.pictureName.TabStop = false;
+            // 
+            // pictureCode
+            // 
+            this.pictureCode.Location = new System.Drawing.Point(431, 52);
+            this.pictureCode.Name = "pictureCode";
+            this.pictureCode.Size = new System.Drawing.Size(16, 16);
+            this.pictureCode.TabIndex = 9;
+            this.pictureCode.TabStop = false;
             // 
             // button2
             // 
@@ -358,42 +395,6 @@
             this.opCode.TabIndex = 0;
             this.opCode.TextChanged += new System.EventHandler(this.opCode_TextChanged);
             // 
-            // pictureCode
-            // 
-            this.pictureCode.Location = new System.Drawing.Point(431, 52);
-            this.pictureCode.Name = "pictureCode";
-            this.pictureCode.Size = new System.Drawing.Size(16, 16);
-            this.pictureCode.TabIndex = 9;
-            this.pictureCode.TabStop = false;
-            // 
-            // pictureName
-            // 
-            this.pictureName.Location = new System.Drawing.Point(431, 103);
-            this.pictureName.Name = "pictureName";
-            this.pictureName.Size = new System.Drawing.Size(16, 16);
-            this.pictureName.TabIndex = 10;
-            this.pictureName.TabStop = false;
-            // 
-            // pictureDuration
-            // 
-            this.pictureDuration.Location = new System.Drawing.Point(430, 154);
-            this.pictureDuration.Name = "pictureDuration";
-            this.pictureDuration.Size = new System.Drawing.Size(16, 16);
-            this.pictureDuration.TabIndex = 11;
-            this.pictureDuration.TabStop = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Silver;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(197, 482);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 27);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "BACK";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // OperationForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -413,6 +414,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.addOperationPanel.ResumeLayout(false);
             this.addOperationPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureDuration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureCode)).EndInit();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -425,9 +429,6 @@
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureCode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureDuration)).EndInit();
             this.ResumeLayout(false);
 
         }

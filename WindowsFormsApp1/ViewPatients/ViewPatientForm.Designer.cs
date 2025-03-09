@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1.ViewPatients
+﻿namespace ClinicSystem.ViewPatients
 {
     partial class ViewPatientForm
     {
@@ -29,17 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewPatientForm));
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.totalPatient = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PatientList = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.RoomNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PatientID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MiddleName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DoctorAssigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateAdmitted = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateDischarged = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.PatientDetails = new System.Windows.Forms.TabPage();
             this.panel14 = new System.Windows.Forms.Panel();
             this.tbBill = new System.Windows.Forms.TextBox();
@@ -80,15 +78,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbPatId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.totalPatient = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.PatientList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.PatientDetails.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel13.SuspendLayout();
@@ -103,23 +97,78 @@
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Location = new System.Drawing.Point(26, 15);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 43);
+            this.panel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(1, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(174, 18);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Search Patient Name / ID";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(22, 20);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(175, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(517, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 18);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Total Patients:";
+            // 
+            // totalPatient
+            // 
+            this.totalPatient.AutoSize = true;
+            this.totalPatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPatient.Location = new System.Drawing.Point(643, 40);
+            this.totalPatient.Name = "totalPatient";
+            this.totalPatient.Size = new System.Drawing.Size(23, 18);
+            this.totalPatient.TabIndex = 3;
+            this.totalPatient.Text = "...";
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.PatientList);
             this.tabControl1.Controls.Add(this.PatientDetails);
-            this.tabControl1.Location = new System.Drawing.Point(6, 76);
+            this.tabControl1.Location = new System.Drawing.Point(12, 84);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(787, 431);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 4;
             // 
             // PatientList
             // 
-            this.PatientList.Controls.Add(this.dataGridView1);
+            this.PatientList.Controls.Add(this.dataGridView);
             this.PatientList.Location = new System.Drawing.Point(4, 22);
             this.PatientList.Name = "PatientList";
             this.PatientList.Padding = new System.Windows.Forms.Padding(3);
@@ -128,93 +177,27 @@
             this.PatientList.Text = "Patient List";
             this.PatientList.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(230)))), ((int)(((byte)(237)))));
-            this.dataGridView1.ColumnHeadersHeight = 35;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RoomNo,
-            this.PatientID,
-            this.FirstName,
-            this.MiddleName,
-            this.LastName,
-            this.DoctorAssigned,
-            this.DateAdmitted,
-            this.DateDischarged});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 30;
-            this.dataGridView1.RowTemplate.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(773, 399);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // RoomNo
-            // 
-            this.RoomNo.HeaderText = "RoomNo.";
-            this.RoomNo.Name = "RoomNo";
-            this.RoomNo.ReadOnly = true;
-            this.RoomNo.Width = 80;
-            // 
-            // PatientID
-            // 
-            this.PatientID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.PatientID.HeaderText = "PatientID";
-            this.PatientID.Name = "PatientID";
-            this.PatientID.ReadOnly = true;
-            this.PatientID.Width = 76;
-            // 
-            // FirstName
-            // 
-            this.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.FirstName.HeaderText = "First Name";
-            this.FirstName.Name = "FirstName";
-            this.FirstName.ReadOnly = true;
-            this.FirstName.Width = 140;
-            // 
-            // MiddleName
-            // 
-            this.MiddleName.HeaderText = "Middle Name";
-            this.MiddleName.Name = "MiddleName";
-            this.MiddleName.ReadOnly = true;
-            this.MiddleName.Width = 140;
-            // 
-            // LastName
-            // 
-            this.LastName.HeaderText = "Last Name";
-            this.LastName.Name = "LastName";
-            this.LastName.ReadOnly = true;
-            this.LastName.Width = 140;
-            // 
-            // DoctorAssigned
-            // 
-            this.DoctorAssigned.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.DoctorAssigned.HeaderText = "Doctor Assigned";
-            this.DoctorAssigned.Name = "DoctorAssigned";
-            this.DoctorAssigned.ReadOnly = true;
-            // 
-            // DateAdmitted
-            // 
-            this.DateAdmitted.HeaderText = "Date-Admitted";
-            this.DateAdmitted.Name = "DateAdmitted";
-            this.DateAdmitted.ReadOnly = true;
-            this.DateAdmitted.Width = 120;
-            // 
-            // DateDischarged
-            // 
-            this.DateDischarged.HeaderText = "Date-Discharged";
-            this.DateDischarged.Name = "DateDischarged";
-            this.DateDischarged.ReadOnly = true;
-            this.DateDischarged.Width = 120;
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AllowUserToResizeRows = false;
+            this.dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(230)))), ((int)(((byte)(237)))));
+            this.dataGridView.ColumnHeadersHeight = 35;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.RowHeadersVisible = false;
+            this.dataGridView.RowHeadersWidth = 30;
+            this.dataGridView.RowTemplate.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(773, 399);
+            this.dataGridView.TabIndex = 0;
             // 
             // PatientDetails
             // 
             this.PatientDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(230)))), ((int)(((byte)(237)))));
+            this.PatientDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PatientDetails.Controls.Add(this.panel14);
             this.PatientDetails.Controls.Add(this.panel13);
             this.PatientDetails.Controls.Add(this.panel9);
@@ -260,7 +243,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(3, 7);
+            this.label15.Location = new System.Drawing.Point(3, 5);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(72, 17);
             this.label15.TabIndex = 0;
@@ -278,6 +261,7 @@
             // 
             // tbDoctorDiagnosis
             // 
+            this.tbDoctorDiagnosis.Enabled = false;
             this.tbDoctorDiagnosis.Location = new System.Drawing.Point(117, 5);
             this.tbDoctorDiagnosis.Multiline = true;
             this.tbDoctorDiagnosis.Name = "tbDoctorDiagnosis";
@@ -615,80 +599,26 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "PatientID";
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(26, 15);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 43);
-            this.panel1.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(1, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 18);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(174, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Search Patient Name / ID";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(22, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(175, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(517, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Total Patients:";
-            // 
-            // totalPatient
-            // 
-            this.totalPatient.AutoSize = true;
-            this.totalPatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalPatient.Location = new System.Drawing.Point(643, 40);
-            this.totalPatient.Name = "totalPatient";
-            this.totalPatient.Size = new System.Drawing.Size(23, 18);
-            this.totalPatient.TabIndex = 3;
-            this.totalPatient.Text = "...";
-            // 
             // ViewPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(815, 551);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.totalPatient);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ViewPatientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ViewPatientForm";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.PatientList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.PatientDetails.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
@@ -716,72 +646,60 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage PatientList;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TabPage PatientDetails;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label totalPatient;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TextBox tbfullName;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox tbPatId;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox tbAge;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.TextBox tbGender;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage PatientList;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.TabPage PatientDetails;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.TextBox tbBill;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.TextBox tbDoctorDiagnosis;
+        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.ComboBox comboDoctorAssigned;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.TextBox tbAddress;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.TextBox tbRoomNo;
+        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.DateTimePicker datepickDateDischarged;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.DateTimePicker datepickDateAdmitted;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.DateTimePicker datepickBirthDay;
-        private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.TextBox tbRoomNo;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.TextBox tbDoctorDiagnosis;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.TextBox tbAddress;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.TextBox tbGender;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TextBox tbAge;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox tbfullName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox comboOperation;
-        private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.TextBox tbBill;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RoomNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PatientID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MiddleName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DoctorAssigned;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateAdmitted;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateDischarged;
-        private System.Windows.Forms.ComboBox comboDoctorAssigned;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox tbPatId;
+        private System.Windows.Forms.Label label3;
     }
 }

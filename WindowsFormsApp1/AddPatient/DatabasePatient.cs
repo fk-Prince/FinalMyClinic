@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicSystem.AddPatient;
 using MySql.Data.MySqlClient;
 
-namespace WindowsFormsApp1.AddPatient
+namespace ClinicSystem
 {
-    public class DatabaseAddPatient
+    public class DatabasePatient
     {
-        public DatabaseAddPatient() { }
+        public DatabasePatient() { }
 
         public List<string> getRoomNo()
         {
@@ -91,7 +92,8 @@ namespace WindowsFormsApp1.AddPatient
                         reader.GetInt32("Age"),
                         reader.GetString("Pin"),
                         reader.GetDateTime("DateHired"),
-                        reader.GetString("Gender")
+                        reader.GetString("Gender"),
+                        reader.GetString("Address")
                      );
                     doctorList.Add(doctor);
                 }
@@ -130,7 +132,7 @@ namespace WindowsFormsApp1.AddPatient
             {
                 MySqlConnection conn = new MySqlConnection(driver);
                 conn.Open();
-                string query = "SELECT * FROM patientoperationdetails_tbl " +
+                string query = "SELECT * FROM appointment_tbl " +
                            "WHERE DoctorID = @DoctorID " +
                            "AND DateSchedule = @DateSchedule " +
                            "AND (StartTime < @EndTime AND EndTime > @StartTime)";
@@ -228,7 +230,7 @@ namespace WindowsFormsApp1.AddPatient
 
                 foreach (var record in patientOperation.Schedules)
                 {
-                    query = "INSERT INTO patientoperationdetails_tbl(PatientOperationNo, DoctorID, OperationCode, DateSchedule, StartTime, EndTime) " +
+                    query = "INSERT INTO appointment_tbl(PatientOperationNo, DoctorID, OperationCode, DateSchedule, StartTime, EndTime) " +
                         "VALUES(@PatientOperationNo, @DoctorID, @OperationCode, @DateSchedule, @StartTime, @EndTime)";
                     MySqlCommand detailcommand = new MySqlCommand(query, conn,trans);
                     detailcommand.Parameters.AddWithValue("@PatientOperationNo", patientOperationNo);
@@ -270,6 +272,58 @@ namespace WindowsFormsApp1.AddPatient
             }
         }
 
+        public List<PatientAppointment> getPatients(int doctorid)
+        {
+            List<PatientAppointment> patientAppointments = new List<PatientAppointment>();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(driver);
+                conn.Open();
+                string query =
+                    "SELECT appointment_tbl.*, patientoperation_tbl.*,patient_tbl.* " +
+                    "FROM appointment_tbl " +
+                    "LEFT JOIN patientoperation_tbl ON patientoperation_tbl.PatientOperationNo = appointment_tbl.PatientOperationNo " +
+                    "LEFT JOIN patient_tbl on patientoperation_tbl.PatientID = patient_tbl.PatientId " +
+                    "WHERE DoctorID = @DoctorID";
+
+                MySqlCommand command = new MySqlCommand(query, conn);
+                command.Parameters.AddWithValue("@DoctorID", doctorid);
+                MySqlDataReader reader = command.ExecuteReader(); 
+                while (reader.Read())
+                {
+                    string diagnosis = reader["Diagnosis"] != DBNull.Value ? reader.GetString("Diagnosis") : string.Empty;
+                    Patient patient = new Patient(
+                        reader.GetInt32("PatientID"),
+                        reader.GetString("FirstName"),
+                        reader.GetString("MiddleName"),
+                        reader.GetString("LastName"),
+                        reader.GetInt32("Age"),
+                        reader.GetString("Gender"),
+                        reader.GetString("Address"),
+                        reader.GetString("ContactNumber"),
+                        reader.GetDateTime("BirthDate"),
+                        diagnosis
+                     );
+
+                    DateTime dateScheduled = reader.GetDateTime("DateSchedule");
+                    TimeSpan startTime = reader.GetTimeSpan("StartTime");
+                    TimeSpan endTime = reader.GetTimeSpan("EndTime");
+                    int roomNo = reader.GetInt32("RoomNo");
+
+                    PatientAppointment patientAppointment = new PatientAppointment(roomNo, patient, dateScheduled, startTime, endTime);
+                    patientAppointments.Add(patientAppointment);
+                }
+
+
+                conn.Close();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error from getPatients DB" + ex.Message);
+            }
+
+            return patientAppointments;
+        }
         private const string driver = "server=localhost;username=root;pwd=root;database=myclinic_db";
     }
 }

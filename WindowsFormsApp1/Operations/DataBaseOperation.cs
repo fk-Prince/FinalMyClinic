@@ -1,11 +1,10 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Buffers;
 
-namespace WindowsFormsApp1
+
+namespace ClinicSystem
 {
     public class DataBaseOperation
     {
@@ -67,7 +66,8 @@ namespace WindowsFormsApp1
                         reader.GetInt32("age"),
                         reader.GetString("pin"),
                         reader.GetDateTime("datehired"),
-                        reader.GetString("gender"));
+                        reader.GetString("gender"),
+                        reader.GetString("Address") );
 
                     operation.DoctorList.Add(doctor);
                 }
@@ -104,6 +104,44 @@ namespace WindowsFormsApp1
                 MessageBox.Show("ERROR FROM INSERT() DB " + ex.Message);
             }
             return false;
+        }
+
+
+        public List<Operation> getOperationByDoctor(int id)
+        {
+            List<Operation> operations = new List<Operation>();
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(driver);
+                conn.Open();
+                string query = "SELECT doctoroperation_tbl.OperationCode, Operation_tbl.* " +
+                    "FROM doctoroperation_tbl " +
+                    "LEFT JOIN Operation_tbl " +
+                    "ON Operation_tbl.OperationCode = doctoroperation_tbl.OperationCode " +
+                    "WHERE DOCTORID = @DoctorID;";
+                MySqlCommand command = new MySqlCommand(query, conn);
+                command.Parameters.AddWithValue("@DoctorID", id);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Operation operation = new Operation(
+                       reader.GetString("operationcode"),
+                       reader.GetString("name"),
+                       reader.GetDateTime("dateadded"),
+                       reader.GetString("description"),
+                       reader.GetDouble("price"),
+                       reader.GetTimeSpan("duration")
+                   );
+                    operations.Add(operation);
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("ERROR FROM getOperationByDoctor() DB " + ex.Message);
+            }
+
+            return operations;
         }
     }
 }

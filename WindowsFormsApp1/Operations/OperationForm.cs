@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace ClinicSystem
 {
     public partial class OperationForm : Form
     {
@@ -35,7 +32,7 @@ namespace WindowsFormsApp1
                 panel.Size = new Size( 300,250);
                 panel.Location = new Point(50, 100);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.Margin = new Padding(30, 10, 10, 10);
+                panel.Margin = new Padding(25, 10, 10, 10);
                 panel.BackColor = Color.FromArgb(153, 180, 209);
 
                 Label label = createLabel("Operation Code", operation.OperationCode, 10, 0);

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using WindowsFormsApp1.AddPatient;
-using WindowsFormsApp1.ViewPatients;
+using ClinicSystem.ViewPatients;
 
-namespace WindowsFormsApp1
+namespace ClinicSystem
 {
     public partial class MainClinic : Form
     {
@@ -28,13 +27,12 @@ namespace WindowsFormsApp1
 
         }
 
-        public void LoadForm(object form)
+        public void LoadForm(Form f)
         {
             if (mainpanel.Controls.Count > 0)
             {
                 mainpanel.Controls.Clear();
             }
-            Form f = form as Form;
             f.TopLevel = false;
             f.Dock = DockStyle.Fill;
             mainpanel.Controls.Add(f);
@@ -58,7 +56,9 @@ namespace WindowsFormsApp1
 
         private void label1_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            this.Hide();
+            UserLoginForm login = new UserLoginForm();
+            login.Show();
         }
 
         private void AddPatientS_Click(object sender, EventArgs e)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace WindowsFormsApp1
+namespace ClinicSystem
 {
     public class Doctor
     {
@@ -15,10 +15,11 @@ namespace WindowsFormsApp1
         private string pin;
         private DateTime dateHired;
         private string gender;
+        private string address;
 
-
-        public Doctor(int doctorID, string doctorFirstName, string doctorMiddleName, string doctorLastName, int doctorAge, string pin, DateTime dateHired, string gender)
+        public Doctor(int doctorID, string doctorFirstName, string doctorMiddleName, string doctorLastName, int doctorAge, string pin, DateTime dateHired, string gender, string address)
         {
+            this.address = address;
             this.doctorID = doctorID;
             this.doctorFirstName = doctorFirstName;
             this.doctorMiddleName = doctorMiddleName;
@@ -29,13 +30,14 @@ namespace WindowsFormsApp1
             this.gender = gender;
         }
 
+        public string DoctorAddress { get => address; }
         public int DoctorID { get => doctorID; }
-        public string DoctorFirstName { get => doctorFirstName;  }
+        public string DoctorFirstName { get => doctorFirstName; }
         public string DoctorMiddleName { get => doctorMiddleName; }
         public string DoctorLastName { get => doctorLastName; }
-        public int DoctorAge { get => doctorAge;  }
+        public int DoctorAge { get => doctorAge; }
         public string Pin { get => pin; set => pin = value; }
-        public DateTime DateHired { get => dateHired;}
-        public string Gender { get => gender;  }
+        public DateTime DateHired { get => dateHired; }
+        public string Gender { get => gender; }
     }
 }
