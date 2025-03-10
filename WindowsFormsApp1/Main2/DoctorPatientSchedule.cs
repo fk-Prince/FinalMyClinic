@@ -35,6 +35,13 @@ namespace ClinicSystem.AddPatient
             this.diagnosis = diagnosis;
         }
 
+        public DoctorPatientSchedule(DateTime scheduleDate, TimeSpan startTime, TimeSpan endTime)
+        {
+            this.scheduleDate = scheduleDate;
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
+
         public TimeSpan Duration { get  => duration; }
         public int DetailID { get => detailId; }
         public DateTime ScheduleDate { get => scheduleDate; }

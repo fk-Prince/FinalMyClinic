@@ -104,6 +104,7 @@
     <Compile Include="AddPatient\AddPatientForm.Designer.cs">
       <DependentUpon>AddPatientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddPatient\DoctorOperation.cs" />
     <Compile Include="AddPatient\DatabasePatient.cs" />
     <Compile Include="AddPatient\PatientAppointment.cs" />
     <Compile Include="AddPatient\Patient.cs" />
@@ -114,6 +115,12 @@
     </Compile>
     <Compile Include="Main2\DoctorClinic.Designer.cs">
       <DependentUpon>DoctorClinic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main2\DoctorScheduleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main2\DoctorScheduleForm.Designer.cs">
+      <DependentUpon>DoctorScheduleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main2\DoctorViewPatient.cs">
       <SubType>Form</SubType>
@@ -128,6 +135,7 @@
     <Compile Include="Main2\DoctorHome.Designer.cs">
       <DependentUpon>DoctorHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main2\ScheduleDatabase.cs" />
     <Compile Include="Main\MainClinic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main2\DoctorHome.resx">
       <DependentUpon>DoctorHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main2\DoctorScheduleForm.resx">
+      <DependentUpon>DoctorScheduleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main2\DoctorViewPatient.resx">
       <DependentUpon>DoctorViewPatient.cs</DependentUpon>

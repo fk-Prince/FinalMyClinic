@@ -18,6 +18,18 @@ namespace ClinicSystem
         private string contactNumber;
         private DateTime birthDate;
 
+
+        public Patient(int id, string fname, string mname, string lname, int age, string gender, string contactNumber)
+        {
+            patientid = id;
+            firstName = fname;
+            middleName = mname;
+            lastName = lname;
+            this.age = age;
+            this.gender = gender;
+            this.contactNumber = contactNumber;
+        }
+
         public Patient(string firstName, string middleName, string lastName, int age, string gender, string address, string contactNumber, DateTime birthDate)
         {
             this.firstName = firstName;

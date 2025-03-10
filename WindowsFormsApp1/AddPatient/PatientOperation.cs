@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClinicSystem.AddPatient;
 
 namespace ClinicSystem
 {
@@ -12,12 +13,13 @@ namespace ClinicSystem
         private int roomNo;
         private int patientId;
         private double bill;
+        private List<DoctorOperation> doctOperaiton;
 
-        List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> schedules = new List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>>();
+       
 
-        public PatientOperation(int roomNo, int patientId, List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> schedules, double bill)
+        public PatientOperation(int roomNo, int patientId, List<DoctorOperation> doctOperaiton, double bill)
         {
-            this.schedules = schedules;
+            this.doctOperaiton = doctOperaiton;
             this.roomNo = roomNo;
             this.patientId = patientId;
             this.bill = bill;
@@ -28,6 +30,6 @@ namespace ClinicSystem
         public int PatientId { get => patientId;  }
 
         public double Bill { get => bill; }
-        public List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> Schedules { get => schedules; }
+        public List<DoctorOperation> DoctorOperation { get => doctOperaiton; }
     }
 }

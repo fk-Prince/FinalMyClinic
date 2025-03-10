@@ -447,6 +447,7 @@
             this.comboDoctor.Size = new System.Drawing.Size(200, 21);
             this.comboDoctor.TabIndex = 10001;
             this.comboDoctor.TabStop = false;
+            this.comboDoctor.SelectedIndexChanged += new System.EventHandler(this.comboDoctor_SelectedIndexChanged);
             // 
             // textBox14
             // 

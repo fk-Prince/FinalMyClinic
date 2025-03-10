@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ClinicSystem.AddPatient;
 
 namespace ClinicSystem
 {
@@ -17,7 +18,7 @@ namespace ClinicSystem
         private Operation selectedOperation;
         private Doctor selectedDoctor;
         private Dictionary<Operation, Doctor> doctorOperation = new Dictionary<Operation, Doctor>();
-        private List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>> tupleSchedule = new List<Tuple<Doctor, Operation, DateTime, TimeSpan, TimeSpan>>();
+        private List<DoctorOperation> TemporaryStorage;
         private Operation lastSelected;
         private FrontDesk frontDesk;
 
@@ -89,8 +90,7 @@ namespace ClinicSystem
             if (doctors != null && doctors.Count != 0)
             {
                 foreach (Doctor doctor in doctors)
-                {
-                    selectedDoctor = doctor;
+                {  
                     comboDoctor.Items.Add(doctor.DoctorID + ",   " + doctor.DoctorLastName + ", " + doctor.DoctorFirstName + " " + doctor.DoctorMiddleName);
                 }
             }
@@ -168,118 +168,6 @@ namespace ClinicSystem
             calculateEndTime();
         }
 
-        public bool checkEmptyInputs()
-        {
-            string fname = FirstName.Text;
-            string mname = MiddleName.Text;
-            string lname = LastName.Text;
-            string address = Address.Text;
-            string age = Age.Text;
-            DateTime bday = BirthDate.Value;
-            string contact = ContactNo.Text;
-
-            if (string.IsNullOrWhiteSpace(fname) ||
-              string.IsNullOrWhiteSpace(mname) ||
-              string.IsNullOrWhiteSpace(lname) ||
-              string.IsNullOrWhiteSpace(address) ||
-              string.IsNullOrWhiteSpace(age) ||
-              string.IsNullOrWhiteSpace(bday.ToString()))
-            {
-                MessageBox.Show("Please fill up all fields", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (comboRoom == null || comboRoom.SelectedItem == null)
-            {
-                MessageBox.Show("No Room Selected", "No Room", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-
-            if (Gender.SelectedItem == null)
-            {
-                MessageBox.Show("Choose gender", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false ;
-            }
-
-            string gender = Gender.SelectedItem.ToString();
-
-            if (bday > DateTime.Now)
-            {
-                MessageBox.Show("Invalid Birthdate", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            int ageInt = 0;
-            if (!int.TryParse(age, out ageInt))
-            {
-                MessageBox.Show("Invalid Age", "Invalid Age", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (ageInt > 120 || ageInt < 0)
-            {
-                MessageBox.Show("Invalid Age", "Invalid Age", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-         
-            if (!string.IsNullOrWhiteSpace(contact) &&
-             (!long.TryParse(contact, out _) || !Regex.IsMatch(contact, @"^09\d{9}$")))
-            {
-                MessageBox.Show("Invalid Contact Number", "Invalid Contact Number", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (doctorOperation.Count == 0)
-            {
-                MessageBox.Show("No Operation", "No Operation", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            double bill = 0;
-            if (!double.TryParse(TotalBill.Text, out bill))
-            {
-                MessageBox.Show("Invalid Total Bill", "Invalid Total Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            int roomNo = int.Parse(comboRoom.SelectedItem.ToString());
-
-
-            Patient patient = new Patient(fname, mname, lname, ageInt, gender, address, contact, bday.Date);
-            int patientid = db.insertPatient(patient,frontDesk.getId());
-            if (patientid == 0)
-            {
-                return false;
-            }
-            PatientOperation patientOperation = new PatientOperation(roomNo, patientid, tupleSchedule,bill);
-            bool result = db.insertPatientOperation(patientOperation);
-            if (result)
-            {
-                MessageBox.Show("Successfully Added Patient", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                roomSettings();
-                text.Clear();
-                tupleSchedule.Clear();
-                selectedDoctor = null;
-                doctorOperation.Clear();
-                selectedOperation = null;
-                PatientOperationNo.Text = db.getLastOpeartionNo();
-                FirstName.Text = "";
-                MiddleName.Text = "";
-                LastName.Text = "";
-                Age.Text = "";
-                Address.Text = "";
-                ContactNo.Text = "";
-                BirthDate.Value = DateTime.Now;
-                TotalBill.Text = "";
-                tbListOperation.Text = "";
-                scheduleDate.Value = DateTime.Now;
-                return true;
-            }
-
-            return false;
-        }
-
         private void BirthDate_ValueChanged(object sender, EventArgs e)
         {
 
@@ -309,9 +197,9 @@ namespace ClinicSystem
 
             if (lastSelected != null && doctorOperation.ContainsKey(lastSelected))
             {
-                var removeLast = tupleSchedule.FirstOrDefault(t => t.Item2 == lastSelected); 
-                if (removeLast != null) tupleSchedule.Remove(removeLast);
-
+                var lastAdded = TemporaryStorage.FirstOrDefault(x => x.Operation == lastSelected);
+                if (lastAdded != null) TemporaryStorage.Remove(lastAdded);
+                
                 doctorOperation.Remove(lastSelected);
                 if (double.TryParse(TotalBill.Text, out double bill)){
                     bill -= lastSelected.Price;
@@ -327,7 +215,112 @@ namespace ClinicSystem
 
         private void AddPatient_Click(object sender, EventArgs e)
         {
-            checkEmptyInputs();
+            string fname = FirstName.Text;
+            string mname = MiddleName.Text;
+            string lname = LastName.Text;
+            string address = Address.Text;
+            string age = Age.Text;
+            DateTime bday = BirthDate.Value;
+            string contact = ContactNo.Text;
+
+            if (string.IsNullOrWhiteSpace(fname) ||
+              string.IsNullOrWhiteSpace(mname) ||
+              string.IsNullOrWhiteSpace(lname) ||
+              string.IsNullOrWhiteSpace(address) ||
+              string.IsNullOrWhiteSpace(age) ||
+              string.IsNullOrWhiteSpace(bday.ToString()))
+            {
+                MessageBox.Show("Please fill up all fields", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            if (comboRoom == null || comboRoom.SelectedItem == null)
+            {
+                MessageBox.Show("No Room Selected", "No Room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+
+            if (Gender.SelectedItem == null)
+            {
+                MessageBox.Show("Choose gender", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            string gender = Gender.SelectedItem.ToString();
+
+            if (bday > DateTime.Now)
+            {
+                MessageBox.Show("Invalid Birthdate", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            int ageInt = 0;
+            if (!int.TryParse(age, out ageInt))
+            {
+                MessageBox.Show("Invalid Age", "Invalid Age", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            if (ageInt > 120 || ageInt < 0)
+            {
+                MessageBox.Show("Invalid Age", "Invalid Age", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(contact) &&
+             (!long.TryParse(contact, out _) || !Regex.IsMatch(contact, @"^09\d{9}$")))
+            {
+                MessageBox.Show("Invalid Contact Number", "Invalid Contact Number", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            if (doctorOperation.Count == 0)
+            {
+                MessageBox.Show("No Operation", "No Operation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+
+            double bill = 0;
+            if (!double.TryParse(TotalBill.Text, out bill))
+            {
+                MessageBox.Show("Invalid Total Bill", "Invalid Total Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ;
+            }
+            int roomNo = int.Parse(comboRoom.SelectedItem.ToString());
+
+
+            Patient patient = new Patient(fname, mname, lname, ageInt, gender, address, contact, bday.Date);
+            int patientid = db.insertPatient(patient, frontDesk.getId());
+            if (patientid == 0)
+            {
+                return ;
+            }
+            PatientOperation patientOperation = new PatientOperation(roomNo, patientid, TemporaryStorage, bill);
+            bool result = db.insertPatientOperation(patientOperation);
+            if (result)
+
+            {
+                MessageBox.Show("Successfully Added Patient", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                roomSettings();
+                text.Clear();
+                selectedDoctor = null;
+                doctorOperation.Clear();
+                selectedOperation = null;
+                PatientOperationNo.Text = db.getLastOpeartionNo();
+                FirstName.Text = "";
+                MiddleName.Text = "";
+                LastName.Text = "";
+                Age.Text = "";
+                Address.Text = "";
+                ContactNo.Text = "";
+                BirthDate.Value = DateTime.Now;
+                TotalBill.Text = "";
+                tbListOperation.Text = "";
+                scheduleDate.Value = DateTime.Now;
+                return ;
+            }
         }
 
         private void AddStack_Click(object sender, EventArgs e)
@@ -337,20 +330,15 @@ namespace ClinicSystem
             {
                 return;
             }
-
-
-            foreach (var pair in doctorOperation.ToList())
+            bool duplicate = isAlreadyAdded();
+            if (duplicate)
             {
-                if (pair.Key.OperationCode.Equals(selectedOperation.OperationCode, StringComparison.OrdinalIgnoreCase)
-                    && pair.Value.DoctorID == selectedDoctor.DoctorID)
-                {
-                    MessageBox.Show("This operation is already added.", "Duplicate Operation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                return;
             }
 
+          
 
-            DateTime selectedDate = scheduleDate.Value.Date;
+            DateTime selectedDate = this.scheduleDate.Value.Date;
             DateTime currentDateTime = DateTime.Now;
 
             TimeSpan startTime;
@@ -367,12 +355,13 @@ namespace ClinicSystem
                 return;
             }
 
-            string scheduleD = scheduleDate.Value.ToString("yyyy-MM-dd");
+            string scheduleDate = this.scheduleDate.Value.ToString("yyyy-MM-dd");
             TimeSpan endTime = startTime + selectedOperation.Duration;
             if (endTime.TotalHours >= 24)
             {
                 endTime = TimeSpan.FromHours(endTime.TotalHours % 24);
             }
+
 
             bool isScheduleAvailable = db.isScheduleAvailable(selectedDoctor.DoctorID, selectedDate, startTime, endTime);
             if (!isScheduleAvailable)
@@ -381,28 +370,23 @@ namespace ClinicSystem
                 return;
             }
 
-            bool scheduleConflictTemp = tupleSchedule.Any(tuple =>
-                tuple.Item1.DoctorID == selectedDoctor.DoctorID &&
-                tuple.Item3 == selectedDate &&
-                (startTime < tuple.Item5 && endTime > tuple.Item4)
-            );
 
-            if (scheduleConflictTemp)
-            {
-                MessageBox.Show("Schedule is not available", "Schedule Conflict2", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+            TemporaryStorage = new List<DoctorOperation>();
+            DoctorOperation docOperation = new DoctorOperation(selectedDoctor, selectedOperation, new DoctorPatientSchedule(selectedDate, startTime, endTime));
+        
+
+            foreach (DoctorOperation docOp in TemporaryStorage){
+                if (docOp.Doctor.DoctorID == selectedDoctor.DoctorID && docOp.Schedule.ScheduleDate == selectedDate && (startTime < docOp.Schedule.EndTime && endTime > docOp.Schedule.StartTime))
+                {
+                    MessageBox.Show("Schedule is not available", "Schedule Conflict2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
-
-            string fullname = selectedDoctor.DoctorLastName + ", " + selectedDoctor.DoctorFirstName + " " + selectedDoctor.DoctorMiddleName;
-            string displayText = "Operation Name: " + selectedOperation.OperationName + Environment.NewLine + "Doctor Assigned: " + fullname + Environment.NewLine
-                + "Date Schedule: " + scheduleD + Environment.NewLine + "StartTime: " + startTime + Environment.NewLine + "EndTime: " + endTime + Environment.NewLine +
-                "---------------------------------------------------------------------------------------------------------------" + Environment.NewLine;
-            tbListOperation.Text += displayText;
-            text.Push(displayText);
-
-            tupleSchedule.Add(Tuple.Create(selectedDoctor, selectedOperation, selectedDate, startTime, endTime));
+            TemporaryStorage.Add(docOperation);
             doctorOperation[selectedOperation] = selectedDoctor;
 
+
+            displayOperationAdded(scheduleDate,startTime, endTime);
 
             lastSelected = selectedOperation;
             MessageBox.Show("Operation Added", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -412,6 +396,49 @@ namespace ClinicSystem
             StartTime.Text = "";
             EndTime.Text = "";
             calculateTotalBill();
+        }
+
+        private void displayOperationAdded(string scheduleD, TimeSpan startTime, TimeSpan endTime)
+        {
+            string fullname = selectedDoctor.DoctorLastName + ", " + selectedDoctor.DoctorFirstName + " " + selectedDoctor.DoctorMiddleName;
+            string displayText = "Operation Name: " + selectedOperation.OperationName + Environment.NewLine + "Doctor Assigned: " + fullname + Environment.NewLine
+                + "Date Schedule: " + scheduleD + Environment.NewLine + "StartTime: " + startTime + Environment.NewLine + "EndTime: " + endTime + Environment.NewLine +
+                "---------------------------------------------------------------------------------------------------------------" + Environment.NewLine;
+            tbListOperation.Text += displayText;
+            text.Push(displayText);
+        }
+
+        private bool isAlreadyAdded()
+        {
+            if (TemporaryStorage != null && TemporaryStorage.Count != 0)
+            {
+                foreach (DoctorOperation vb in TemporaryStorage)
+                {
+                    if (vb.Operation.OperationCode.Equals(selectedOperation.OperationCode, StringComparison.OrdinalIgnoreCase) && vb.Doctor.DoctorID == selectedDoctor.DoctorID)
+                    {
+                        MessageBox.Show("This operation is already added.", "Duplicate Operation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private void comboDoctor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboDoctor.SelectedIndex == -1) return;
+            string[] doc = comboDoctor.SelectedItem.ToString().Split(',');
+            if (doctors != null && doctors.Count != 0)
+            {
+                foreach (Doctor doctor in doctors)
+                {
+                    if (int.Parse(doc[0])  == doctor.DoctorID)
+                    {
+                        selectedDoctor = doctor;
+                    }
+                }
+            }
         }
     }
 }

@@ -225,18 +225,18 @@ namespace ClinicSystem
                 object result = command.ExecuteScalar();
                 int patientOperationNo = Convert.ToInt32(result);
 
-                foreach (var record in patientOperation.Schedules)
+                foreach (DoctorOperation record in patientOperation.DoctorOperation)
                 {
                     query = "INSERT INTO appointment_tbl(PatientOperationNo, DoctorID, OperationCode, DateSchedule, StartTime, EndTime) " +
                         "VALUES(@PatientOperationNo, @DoctorID, @OperationCode, @DateSchedule, @StartTime, @EndTime)";
-                    MySqlCommand detailcommand = new MySqlCommand(query, conn,trans);
-                    detailcommand.Parameters.AddWithValue("@PatientOperationNo", patientOperationNo);
-                    detailcommand.Parameters.AddWithValue("@DoctorID", record.Item1.DoctorID);
-                    detailcommand.Parameters.AddWithValue("@OperationCode", record.Item2.OperationCode);
-                    detailcommand.Parameters.AddWithValue("@DateSchedule", record.Item3.ToString("yyyy-MM-dd"));
-                    detailcommand.Parameters.AddWithValue("@StartTime", record.Item4);
-                    detailcommand.Parameters.AddWithValue("@EndTime", record.Item5);
-                    detailcommand.ExecuteNonQuery();
+                    MySqlCommand commadn2 = new MySqlCommand(query, conn, trans);
+                    commadn2.Parameters.AddWithValue("@PatientOperationNo", patientOperationNo);
+                    commadn2.Parameters.AddWithValue("@DoctorID", record.Doctor.DoctorID);
+                    commadn2.Parameters.AddWithValue("@OperationCode", record.Operation.OperationCode);
+                    commadn2.Parameters.AddWithValue("@DateSchedule", record.Schedule.ScheduleDate.ToString("yyyy-MM-dd"));
+                    commadn2.Parameters.AddWithValue("@StartTime", record.Schedule.StartTime.ToString());
+                    commadn2.Parameters.AddWithValue("@EndTime", record.Schedule.EndTime.ToString());
+                    commadn2.ExecuteNonQuery();
                 }
                 trans.Commit();
                 conn.Close();
@@ -250,6 +250,7 @@ namespace ClinicSystem
             }
             return false;
         }
+
         private void roomSetting(int roomNo)
         {
             try

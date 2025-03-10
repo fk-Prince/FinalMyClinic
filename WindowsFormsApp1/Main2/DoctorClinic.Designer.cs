@@ -115,6 +115,7 @@
             this.SchedulesD.TabStop = false;
             this.SchedulesD.Text = "Schedules";
             this.SchedulesD.UseVisualStyleBackColor = true;
+            this.SchedulesD.Click += new System.EventHandler(this.SchedulesD_Click);
             this.SchedulesD.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mouseClicked);
             // 
             // ViewPatientD

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicSystem.Main2;
 
 namespace ClinicSystem
 {
@@ -80,6 +81,12 @@ namespace ClinicSystem
             UserLoginForm login = new UserLoginForm();
             login.Show();
             this.Hide();
+        }
+
+        private void SchedulesD_Click(object sender, EventArgs e)
+        {
+            DoctorScheduleForm schedule = new DoctorScheduleForm(dr);
+            loadForm(schedule);
         }
     }
 }
